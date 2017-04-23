@@ -26,6 +26,7 @@ public class ProductDao extends AbstractDao<Product, Long> {
         public final static Property ProductName = new Property(1, String.class, "productName", false, "PRODUCT_NAME");
         public final static Property ProductImage = new Property(2, String.class, "productImage", false, "PRODUCT_IMAGE");
         public final static Property ProductPrice = new Property(3, Float.class, "productPrice", false, "PRODUCT_PRICE");
+        public final static Property ProductCountry = new Property(4, Long.class, "productCountry", false, "PRODUCT_COUNTRY");
     }
 
 
@@ -44,7 +45,8 @@ public class ProductDao extends AbstractDao<Product, Long> {
                 "\"PRODUCT_ID\" INTEGER PRIMARY KEY NOT NULL UNIQUE ," + // 0: productId
                 "\"PRODUCT_NAME\" TEXT NOT NULL ," + // 1: productName
                 "\"PRODUCT_IMAGE\" TEXT," + // 2: productImage
-                "\"PRODUCT_PRICE\" REAL);"); // 3: productPrice
+                "\"PRODUCT_PRICE\" REAL," + // 3: productPrice
+                "\"PRODUCT_COUNTRY\" INTEGER);"); // 4: productCountry
     }
 
     /** Drops the underlying database table. */
@@ -68,6 +70,11 @@ public class ProductDao extends AbstractDao<Product, Long> {
         if (productPrice != null) {
             stmt.bindDouble(4, productPrice);
         }
+ 
+        Long productCountry = entity.getProductCountry();
+        if (productCountry != null) {
+            stmt.bindLong(5, productCountry);
+        }
     }
 
     @Override
@@ -85,6 +92,11 @@ public class ProductDao extends AbstractDao<Product, Long> {
         if (productPrice != null) {
             stmt.bindDouble(4, productPrice);
         }
+ 
+        Long productCountry = entity.getProductCountry();
+        if (productCountry != null) {
+            stmt.bindLong(5, productCountry);
+        }
     }
 
     @Override
@@ -98,7 +110,8 @@ public class ProductDao extends AbstractDao<Product, Long> {
             cursor.getLong(offset + 0), // productId
             cursor.getString(offset + 1), // productName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // productImage
-            cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3) // productPrice
+            cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3), // productPrice
+            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4) // productCountry
         );
         return entity;
     }
@@ -109,6 +122,7 @@ public class ProductDao extends AbstractDao<Product, Long> {
         entity.setProductName(cursor.getString(offset + 1));
         entity.setProductImage(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setProductPrice(cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3));
+        entity.setProductCountry(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
      }
     
     @Override

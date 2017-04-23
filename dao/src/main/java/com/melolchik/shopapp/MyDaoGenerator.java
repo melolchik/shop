@@ -58,6 +58,7 @@ public class MyDaoGenerator {
         entity.addStringProperty("productName").notNull();
         entity.addStringProperty("productImage");
         entity.addFloatProperty("productPrice");
+        entity.addLongProperty("productCountry");
         return entity;
     }
 

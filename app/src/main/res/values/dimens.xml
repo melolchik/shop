@@ -5,44 +5,14 @@
 
     <!-- HEIGHT -->
     <dimen name="height_buttons">50dp</dimen>
-    <dimen name="height_buttons_settings">50dp</dimen>
-    <!--dimen name="height_action_bar">56dp</dimen-->
-    <dimen name="height_settings_item">43dp</dimen>
-    <dimen name="height_tip_button">50dp</dimen>
     <dimen name="height_left_menu_item">60dp</dimen>
 
-    <dimen name="height_checkout_custom">32dp</dimen>
-
-    <!-- WIDTH -->
-
-    <dimen name="width_transaction_history_divider">75dp</dimen>
-    <dimen name="width_or_divider">25dp</dimen>
-    <dimen name="width_or_padding">10dp</dimen>
-    <dimen name="width_settings_checkbox">19dp</dimen>
-    <dimen name="width_checkout_divider">110dp</dimen>
-
-    <!-- PADDING -->
+     <!-- PADDING -->
     <dimen name="padding_text">50dp</dimen>
     <dimen name="padding_screen">30dp</dimen>
-    <dimen name="padding_home_screen">30dp</dimen>
-    <dimen name="padding_detail_screen">30dp</dimen>
     <dimen name="padding_left_menu_item">30dp</dimen>
     <dimen name="padding_left_menu_item_right">15dp</dimen>
-    <dimen name="padding_transaction_history_top_info">30dp</dimen>
-    <dimen name="padding_transaction_history_table">22dp</dimen>
-    <dimen name="padding_transaction_history_table_ver">10dp</dimen>
-    <dimen name="margin_buttons">10dp</dimen>
-    <dimen name="padding_settings_item">25dp</dimen>
-
-    <dimen name="padding_home_one">5dp</dimen>
-    <dimen name="padding_home_two">20dp</dimen>
-
-    <dimen name="padding_between_tips">10dp</dimen>
-    <dimen name="padding_tips_hor">20dp</dimen>
-
-    <dimen name="padding_checkout_screen">13dp</dimen>
-
-    <dimen name="padding_checkout_final_info">10dp</dimen>
+    <dimen name="margin_product_items">10dp</dimen>
 
     <!-- TEXT SIZE -->
     <dimen name="txt_size_common_title">28dp</dimen>
@@ -52,43 +22,15 @@
     <dimen name="txt_size_edit_text">14dp</dimen>
     <dimen name="txt_size_edit_text_error">12dp</dimen>
 
-    <!-- TEXT SIZE : Settings -->
-    <dimen name="txt_size_settings_item">14dp</dimen>
-    <dimen name="txt_size_settings_item_limit">12dp</dimen>
-    <dimen name="txt_size_settings_pin">65dp</dimen>
-
-    <!-- TEXT SIZE : Purchase limit -->
-    <dimen name="txt_size_purchase_limit">70dp</dimen>
-
-    <!-- TEXT SIZE : Transaction History -->
-
-    <dimen name="txt_size_transaction_history_total_spend">13dp</dimen>
-    <dimen name="txt_size_transaction_history_total_spend_value">58dp</dimen>
-
-    <dimen name="txt_size_transaction_history_daily_limit_label">9dp</dimen>
-    <dimen name="txt_size_transaction_history_daily_limit_value">21dp</dimen>
-
-    <dimen name="txt_size_transaction_history_column">11dp</dimen>
-    <dimen name="txt_size_transaction_history_item_name">11dp</dimen>
-    <dimen name="txt_size_transaction_history_item_date">10dp</dimen>
-    <dimen name="txt_size_transaction_history_item_amount">13dp</dimen>
-
-    <!-- TEXT SIZE : Left side menu -->
+     <!-- TEXT SIZE : Left side menu -->
     <dimen name="txt_size_left_menu_item">16dp</dimen>
     <dimen name="txt_size_left_menu_email">14dp</dimen>
     <dimen name="txt_size_left_menu_label">9dp</dimen>
     <dimen name="txt_size_left_menu_limit">14dp</dimen>
 
-    <!-- TEXT SIZE : Checkout -->
+    <!-- TEXT SIZE : Products -->
 
-    <dimen name="txt_size_checkout_merchant_name">12dp</dimen>
-    <dimen name="txt_size_checkout_merchant_address">12dp</dimen>
-    <dimen name="txt_size_checkout_bill_amount_label">12dp</dimen>
-    <dimen name="txt_size_checkout_bill_amount_value">55dp</dimen>
-    <dimen name="txt_size_checkout_add_tip_label">10dp</dimen>
-    <dimen name="txt_size_checkout_column_label">12dp</dimen>
-    <dimen name="txt_size_checkout_column_value">12dp</dimen>
-    <dimen name="txt_size_checkout_tip">14dp</dimen>
-    <dimen name="txt_size_checkout_tip_big">18dp</dimen>
-    <dimen name="txt_size_checkout_tip_small">10dp</dimen>
+    <dimen name="txt_size_product_name">12dp</dimen>
+    <integer name="count_product_in_row">4</integer>
+
 </resources>

@@ -6,4 +6,12 @@
         <item name="android:textColor">@color/color_white_op60</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="Shop.TextView.Product.Name" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="customFont">roboto_bold</item>
+        <item name="android:textSize">@dimen/txt_size_product_name</item>
+    </style>
+
 </resources>
