@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="diam_corner">3dp</dimen>
-
+    <dimen name="diam_profile_photo">60dp</dimen>
 
     <!-- HEIGHT -->
     <dimen name="height_buttons">50dp</dimen>
-    <dimen name="height_left_menu_item">60dp</dimen>
+    <dimen name="height_left_menu_item">40dp</dimen>
 
      <!-- PADDING -->
     <dimen name="padding_text">50dp</dimen>
@@ -25,11 +25,10 @@
      <!-- TEXT SIZE : Left side menu -->
     <dimen name="txt_size_left_menu_item">16dp</dimen>
     <dimen name="txt_size_left_menu_email">14dp</dimen>
-    <dimen name="txt_size_left_menu_label">9dp</dimen>
-    <dimen name="txt_size_left_menu_limit">14dp</dimen>
+    <dimen name="txt_size_left_menu_name">14dp</dimen>
 
     <!-- TEXT SIZE : Products -->
-
+    <dimen name="txt_size_country_name">12dp</dimen>
     <dimen name="txt_size_product_name">12dp</dimen>
     <integer name="count_product_in_row">4</integer>
 

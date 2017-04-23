@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="diam_corner">5dp</dimen>
+    <dimen name="diam_profile_photo">110dp</dimen>
 
     <!-- HEIGHT -->
     <dimen name="height_buttons">100dp</dimen>
@@ -22,9 +23,14 @@
     <dimen name="txt_size_edit_text">28dp</dimen>
     <dimen name="txt_size_edit_text_error">24dp</dimen>
 
+    <!-- TEXT SIZE : Left side menu -->
+    <dimen name="txt_size_left_menu_item">30dp</dimen>
+    <dimen name="txt_size_left_menu_email">28dp</dimen>
+    <dimen name="txt_size_left_menu_name">28dp</dimen>
 
     <!-- TEXT SIZE : Products -->
 
+    <dimen name="txt_size_country_name">24dp</dimen>
     <dimen name="txt_size_product_name">24dp</dimen>
     <integer name="count_product_in_row">5</integer>
 

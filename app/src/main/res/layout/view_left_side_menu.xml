@@ -13,29 +13,53 @@
         android:background="@color/colorPrimary"
         android:padding="@dimen/padding_left_menu_item"
         >
-        <ImageButton
-            android:id="@+id/button_close"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_input"
-            android:background="?android:selectableItemBackground"
-            android:layout_marginTop="@dimen/padding_left_menu_item"
-            android:layout_marginEnd="@dimen/padding_left_menu_item_right"
-            android:contentDescription="Close Button"
-            android:layout_gravity="end"/>
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_gravity="center_vertical"
+                android:minWidth="@dimen/diam_profile_photo">
+            <com.instabug.library.view.CircularImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/diam_profile_photo"
+                android:layout_height="@dimen/diam_profile_photo"
+                android:src="@color/color_light_blue"/>
+            </FrameLayout>
+
+
+            <com.melolchik.common.ui.views.customfont.CustomFontTextView
+                android:id="@+id/txt_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_input"
+                android:background="?android:selectableItemBackground"
+                android:drawablePadding="5dp"
+                android:text="@string/left_menu_item_exit"
+                style="@style/Shop.TextView.LeftSideMenu.Email"
+                android:layout_marginStart="@dimen/padding_left_menu_item"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+
         <com.melolchik.common.ui.views.customfont.CustomFontTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Shop.TextView.LeftSideMenu.Name"
-            android:text="@string/left_menu_label"
+            android:text="Merchant Name"
+            android:layout_marginTop="6dp"
             />
         <com.melolchik.common.ui.views.customfont.CustomFontTextView
             android:id="@+id/left_menu_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Shop.TextView.LeftSideMenu.Email"
-            android:text="test@mail.com"
-            android:layout_marginTop="10dp"/>
+            android:text="merchant@mail.com"
+            android:layout_marginTop="6dp"/>
 
     </LinearLayout>
 

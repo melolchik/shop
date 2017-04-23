@@ -1,7 +1,7 @@
 <resources>
 
     <style name="Shop.TabLayout.Tab" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">@dimen/txt_size_country_name</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/color_white_op60</item>
         <item name="android:textAllCaps">true</item>
@@ -12,6 +12,7 @@
         <item name="android:textColor">@color/color_black</item>
         <item name="customFont">roboto_bold</item>
         <item name="android:textSize">@dimen/txt_size_product_name</item>
+        <item name="android:paddingStart">10dp</item>
     </style>
 
 </resources>

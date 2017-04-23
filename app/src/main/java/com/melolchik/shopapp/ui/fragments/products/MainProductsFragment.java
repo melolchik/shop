@@ -116,7 +116,7 @@ public class MainProductsFragment extends BaseFragmentWithToolbar {
 
         @Override
         public BaseFragment getItem(int position) {
-            return CountryProductFragment.createInstance();
+            return CountryProductFragment.createInstance( mCountryList.get(position).getCountryId());
 
         }
 

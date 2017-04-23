@@ -7,7 +7,5 @@
     <string name="left_menu_item_settings">Настройки</string>
     <string name="left_menu_item_support">Поддержка</string>
 
-    <string name="left_menu_label">Daily Spend Limit</string>
-    <string name="left_menu_settings_template">\u0024%1$.2f of \u0024%2$.2f</string>
-
+    <string name="left_menu_item_exit">Выход</string>
 </resources>

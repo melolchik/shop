@@ -128,7 +128,7 @@ public class LeftSideMenuView extends FrameLayout {
     /**
      * On click close.
      */
-    @OnClick(R.id.button_close)
+    @OnClick(R.id.txt_exit)
     void onClickClose() {
         if (mOnCloseClickListener != null) {
             mOnCloseClickListener.onCloseClick();

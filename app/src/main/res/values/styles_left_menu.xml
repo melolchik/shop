@@ -21,7 +21,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/color_white</item>
         <item name="customFont">sf_ui_display_regular</item>
-        <item name="android:textSize">@dimen/txt_size_left_menu_label</item>
+        <item name="android:textSize">@dimen/txt_size_left_menu_name</item>
     </style>
 
 

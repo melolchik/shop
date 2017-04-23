@@ -25,12 +25,15 @@ import butterknife.BindView;
 public class CountryProductFragment extends BaseFragment implements CountryProductsViewImpl {
 
 
-    public static final int MAX_ITEMS_IN_ROW = 4;
+    protected final static String ARG_COUNTRY_ID = "ARG_COUNTRY_ID";
+
     /**
      * The M recycler view.
      */
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    protected long mCountryId = 0;
 
     protected ProductGridAdapter mGridAdapter;
 
@@ -41,11 +44,21 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
      *
      * @return the base fragment
      */
-    public static BaseFragment createInstance() {
+    public static BaseFragment createInstance(long countryId) {
         CountryProductFragment fragment = new CountryProductFragment();
         Bundle args = new Bundle();
+        args.putLong(ARG_COUNTRY_ID,countryId);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if(args != null){
+            mCountryId = args.getLong(ARG_COUNTRY_ID,Country.COUNTRY_ID_ALL);
+        }
     }
 
     @Override
@@ -58,12 +71,12 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
     protected void onCreateView(View rootView, Bundle savedInstanceState) {
 
         mProductsPresenter.attachView(this);
-        GridLayoutManager layoutManager = new GridLayoutManager(mRecyclerView.getContext(), MAX_ITEMS_IN_ROW);
+        GridLayoutManager layoutManager = new GridLayoutManager(mRecyclerView.getContext(), SettingsUtil.getProductRowCount());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new AlignmentItemDecoration(SettingsUtil.getProductItemMargin()));
         mGridAdapter = new ProductGridAdapter(mRecyclerView);
         mRecyclerView.setAdapter(mGridAdapter);
-        mProductsPresenter.getProductForCountry(Country.COUNTRY_ID_ALL);
+        mProductsPresenter.getProductForCountry(mCountryId);
     }
 
 
