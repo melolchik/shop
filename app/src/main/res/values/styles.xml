@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- TOOLBAR -->
+    <style name="Shop.TextView.ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="customFont">roboto_medium</item>
+        <item name="android:textSize">20dp</item>
+    </style>
 </resources>

@@ -39,4 +39,13 @@ dependencies {
     debugCompile project(path: ':common', configuration: 'debug')
     releaseCompile project(path: ':common', configuration: 'release')
     compile project(path: ':common')
+
+    //EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    //greenDao
+    compile 'org.greenrobot:greendao:3.2.0'
+
+    //Database debug
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
 }

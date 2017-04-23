@@ -55,7 +55,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
      * The M network state receiver.
      */
     protected NetworkStateReceiver mNetworkStateReceiver;
-    protected UpdateCrashManager mUpdateCrashManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,12 +62,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
         setContentView(getContentViewId());
         initBroadcastReceiver();
         mNetworkStateReceiver = new NetworkStateReceiver(this);
-        //boolean allowInstabugAndHockeyAppUpdate = getResources().getBoolean(R.bool.allowInstabugAndHockeyAppUpdate);
-        mUpdateCrashManager = new UpdateCrashManager(isAllowInstabugAndHockeyAppUpdate());
 
     }
-
-    protected abstract boolean isAllowInstabugAndHockeyAppUpdate();
 
     @Override
     public void networkAvailable() {
@@ -91,7 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     public void onResume() {
         super.onResume();
         registerReceiver(mNetworkStateReceiver, mNetworkStateReceiver.getIntentFilter());
-        mUpdateCrashManager.registerHockeyAppManager(this);
         IntentFilter filter = getBroadcastIntentFilter();
         if (filter != null) {
             LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, getBroadcastIntentFilter());
@@ -111,14 +105,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     public void onPause() {
         super.onPause();
         unregisterReceiver(mNetworkStateReceiver);
-        mUpdateCrashManager.unregisterHockeyAppManagers();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mUpdateCrashManager.unregisterHockeyAppManagers();
 
     }
 
