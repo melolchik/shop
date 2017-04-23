@@ -36,11 +36,11 @@ public class LeftSideMenuView extends FrameLayout {
     /**
      * The interface On close click listener.
      */
-    public interface OnCloseClickListener {
+    public interface OnExitClickListener {
         /**
          * On close click.
          */
-        void onCloseClick();
+        void onExitClick();
     }
 
 
@@ -52,7 +52,7 @@ public class LeftSideMenuView extends FrameLayout {
     /**
      * The M on close click listener.
      */
-    protected OnCloseClickListener mOnCloseClickListener;
+    protected OnExitClickListener mOnCloseClickListener;
 
     /**
      * Instantiates a new Left side menu view.
@@ -110,7 +110,7 @@ public class LeftSideMenuView extends FrameLayout {
      *
      * @param onCloseClickListener the on close click listener
      */
-    public void setOnCloseClickListener(OnCloseClickListener onCloseClickListener) {
+    public void setOnExitClickListener(OnExitClickListener onCloseClickListener) {
         mOnCloseClickListener = onCloseClickListener;
     }
 
@@ -131,7 +131,7 @@ public class LeftSideMenuView extends FrameLayout {
     @OnClick(R.id.txt_exit)
     void onClickClose() {
         if (mOnCloseClickListener != null) {
-            mOnCloseClickListener.onCloseClick();
+            mOnCloseClickListener.onExitClick();
         }
     }
 }

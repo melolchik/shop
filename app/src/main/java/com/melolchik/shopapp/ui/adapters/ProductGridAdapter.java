@@ -1,11 +1,11 @@
 package com.melolchik.shopapp.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.melolchik.common.ui.adapters.BaseListAdapter;
-import com.melolchik.common.util.Util;
 import com.melolchik.shopapp.dao.Product;
 import com.melolchik.shopapp.ui.views.ProductView;
 import com.melolchik.shopapp.utils.SettingsUtil;
@@ -15,6 +15,12 @@ import com.melolchik.shopapp.utils.SettingsUtil;
  */
 
 public class ProductGridAdapter extends BaseListAdapter<Product> {
+
+    public interface OnProductClickListener {
+        void onProductClick(Product product);
+    }
+
+    protected OnProductClickListener mOnItemClickListener;
 
     public ProductGridAdapter(RecyclerView recyclerView){
         super(recyclerView);
@@ -33,7 +39,7 @@ public class ProductGridAdapter extends BaseListAdapter<Product> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if(holder instanceof ProductViewHolder){
-            ((ProductViewHolder) holder).setData(getItem(position));
+            ((ProductViewHolder) holder).setData(getItem(position),mOnItemClickListener);
         }
     }
 
@@ -44,8 +50,21 @@ public class ProductGridAdapter extends BaseListAdapter<Product> {
             mProductView = view;
         }
 
-        public void setData(Product product){
+        public void setData(Product product,final OnProductClickListener listener){
             mProductView.bind(product);
+            mProductView.setClickable(true);
+            mProductView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null){
+                        listener.onProductClick(mProductView.getProduct());
+                    }
+                }
+            });
         }
+    }
+
+    public void setOnProductClickListener(OnProductClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 }

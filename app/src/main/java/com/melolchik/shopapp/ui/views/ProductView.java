@@ -30,6 +30,8 @@ public class ProductView extends FrameLayout {
     @BindView(R.id.item_name)
     CustomFontTextView mItemName;
 
+    private Product mProduct = null;
+
     /**
      * Instantiates a new Product view.
      *
@@ -63,7 +65,12 @@ public class ProductView extends FrameLayout {
     }
 
     public void bind(Product product){
+        mProduct = product;
         if(product == null) return;
         mItemName.setText(product.getProductName());
+    }
+
+    public Product getProduct() {
+        return mProduct;
     }
 }

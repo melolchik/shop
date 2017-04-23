@@ -8,8 +8,10 @@ import android.widget.FrameLayout;
 
 import com.melolchik.common.ui.activities.BaseActivity;
 import com.melolchik.shopapp.R;
+import com.melolchik.shopapp.components.enums.LeftMenuItem;
 import com.melolchik.shopapp.components.events.FragmentMessageEvent;
 import com.melolchik.shopapp.components.events.MessageEvent;
+import com.melolchik.shopapp.ui.adapters.LeftMenuAdapter;
 import com.melolchik.shopapp.ui.fragments.products.MainProductsFragment;
 import com.melolchik.shopapp.ui.views.LeftSideMenuView;
 import com.melolchik.shopapp.utils.DatabaseUtil;
@@ -24,7 +26,8 @@ import butterknife.ButterKnife;
 /**
  * The type Main activity.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements LeftSideMenuView.OnExitClickListener,
+        LeftMenuAdapter.OnItemClickListener {
 
     /**
      * The M fragment container.
@@ -56,7 +59,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        //openLeftSideMenu();
+        mLeftSideMenuView.setOnExitClickListener(this);
+        mLeftSideMenuView.setOnItemClickListener(this);
         new DatabaseUtil().initIfNull();
         showFragment(MainProductsFragment.createInstance(), true, true);
     }
@@ -73,6 +77,7 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().removeAllStickyEvents();
         EventBus.getDefault().unregister(this);
     }
+
     /**
      * Open nav drawer.
      */
@@ -94,7 +99,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         log("onMessageEvent: " + event.getMessageCode());
         switch (event.getMessageCode()) {
@@ -120,6 +125,22 @@ public class MainActivity extends BaseActivity {
 
                 break;
 
+        }
+    }
+
+    @Override
+    public void onExitClick() {
+        closeLeftSideMenu();
+    }
+
+    @Override
+    public void onItemClick(LeftMenuItem item) {
+        switch (item) {
+            case PRODUCTS:
+            case HISTORY:
+                //...
+            default:
+                closeLeftSideMenu();
         }
     }
 }

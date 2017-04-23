@@ -9,6 +9,7 @@ import com.melolchik.common.ui.fragments.BaseFragment;
 import com.melolchik.shopapp.R;
 import com.melolchik.shopapp.dao.Country;
 import com.melolchik.shopapp.dao.Product;
+import com.melolchik.shopapp.ui.adapters.LeftMenuAdapter;
 import com.melolchik.shopapp.ui.adapters.ProductGridAdapter;
 import com.melolchik.shopapp.ui.adapters.decors.AlignmentItemDecoration;
 import com.melolchik.shopapp.ui.presenters.products.CountryProductsPresenter;
@@ -22,7 +23,8 @@ import butterknife.BindView;
 /**
  * Created by melolchik on 28.03.2017.
  */
-public class CountryProductFragment extends BaseFragment implements CountryProductsViewImpl {
+public class CountryProductFragment extends BaseFragment implements CountryProductsViewImpl,
+        ProductGridAdapter.OnProductClickListener{
 
 
     protected final static String ARG_COUNTRY_ID = "ARG_COUNTRY_ID";
@@ -75,6 +77,7 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new AlignmentItemDecoration(SettingsUtil.getProductItemMargin()));
         mGridAdapter = new ProductGridAdapter(mRecyclerView);
+        mGridAdapter.setOnProductClickListener(this);
         mRecyclerView.setAdapter(mGridAdapter);
         mProductsPresenter.getProductForCountry(mCountryId);
     }
@@ -84,5 +87,10 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
     public void showProductList(List<Product> productList) {
         if (mGridAdapter == null) return;
         mGridAdapter.setData(productList);
+    }
+
+    @Override
+    public void onProductClick(Product product) {
+        log("onProductClick = " + product);
     }
 }
