@@ -8,7 +8,7 @@
     android:minHeight="?android:attr/actionBarSize"
     android:background="@color/colorPrimary"
     android:gravity="center"
-    android:elevation="4dp"
+    android:elevation="0dp"
     >
 
     <com.melolchik.common.ui.views.customfont.CustomFontTextView

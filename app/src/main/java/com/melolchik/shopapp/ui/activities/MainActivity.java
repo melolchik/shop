@@ -12,6 +12,7 @@ import com.melolchik.shopapp.components.events.FragmentMessageEvent;
 import com.melolchik.shopapp.components.events.MessageEvent;
 import com.melolchik.shopapp.ui.fragments.products.MainProductsFragment;
 import com.melolchik.shopapp.ui.views.LeftSideMenuView;
+import com.melolchik.shopapp.utils.DatabaseUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -55,7 +56,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        openLeftSideMenu();
+        //openLeftSideMenu();
+        new DatabaseUtil().initIfNull();
         showFragment(MainProductsFragment.createInstance(), true, true);
     }
 

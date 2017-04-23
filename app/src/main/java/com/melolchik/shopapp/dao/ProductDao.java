@@ -22,10 +22,10 @@ public class ProductDao extends AbstractDao<Product, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property ProductId = new Property(1, int.class, "productId", false, "PRODUCT_ID");
-        public final static Property ProductName = new Property(2, String.class, "productName", false, "PRODUCT_NAME");
-        public final static Property ProductImage = new Property(3, String.class, "productImage", false, "PRODUCT_IMAGE");
+        public final static Property ProductId = new Property(0, long.class, "productId", true, "PRODUCT_ID");
+        public final static Property ProductName = new Property(1, String.class, "productName", false, "PRODUCT_NAME");
+        public final static Property ProductImage = new Property(2, String.class, "productImage", false, "PRODUCT_IMAGE");
+        public final static Property ProductPrice = new Property(3, Float.class, "productPrice", false, "PRODUCT_PRICE");
     }
 
 
@@ -41,10 +41,10 @@ public class ProductDao extends AbstractDao<Product, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PRODUCT\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"PRODUCT_ID\" INTEGER NOT NULL UNIQUE ," + // 1: productId
-                "\"PRODUCT_NAME\" TEXT NOT NULL ," + // 2: productName
-                "\"PRODUCT_IMAGE\" TEXT);"); // 3: productImage
+                "\"PRODUCT_ID\" INTEGER PRIMARY KEY NOT NULL UNIQUE ," + // 0: productId
+                "\"PRODUCT_NAME\" TEXT NOT NULL ," + // 1: productName
+                "\"PRODUCT_IMAGE\" TEXT," + // 2: productImage
+                "\"PRODUCT_PRICE\" REAL);"); // 3: productPrice
     }
 
     /** Drops the underlying database table. */
@@ -56,71 +56,71 @@ public class ProductDao extends AbstractDao<Product, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, Product entity) {
         stmt.clearBindings();
- 
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
-        stmt.bindLong(2, entity.getProductId());
-        stmt.bindString(3, entity.getProductName());
+        stmt.bindLong(1, entity.getProductId());
+        stmt.bindString(2, entity.getProductName());
  
         String productImage = entity.getProductImage();
         if (productImage != null) {
-            stmt.bindString(4, productImage);
+            stmt.bindString(3, productImage);
+        }
+ 
+        Float productPrice = entity.getProductPrice();
+        if (productPrice != null) {
+            stmt.bindDouble(4, productPrice);
         }
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Product entity) {
         stmt.clearBindings();
- 
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
-        stmt.bindLong(2, entity.getProductId());
-        stmt.bindString(3, entity.getProductName());
+        stmt.bindLong(1, entity.getProductId());
+        stmt.bindString(2, entity.getProductName());
  
         String productImage = entity.getProductImage();
         if (productImage != null) {
-            stmt.bindString(4, productImage);
+            stmt.bindString(3, productImage);
+        }
+ 
+        Float productPrice = entity.getProductPrice();
+        if (productPrice != null) {
+            stmt.bindDouble(4, productPrice);
         }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+        return cursor.getLong(offset + 0);
     }    
 
     @Override
     public Product readEntity(Cursor cursor, int offset) {
         Product entity = new Product( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getInt(offset + 1), // productId
-            cursor.getString(offset + 2), // productName
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // productImage
+            cursor.getLong(offset + 0), // productId
+            cursor.getString(offset + 1), // productName
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // productImage
+            cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3) // productPrice
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Product entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setProductId(cursor.getInt(offset + 1));
-        entity.setProductName(cursor.getString(offset + 2));
-        entity.setProductImage(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setProductId(cursor.getLong(offset + 0));
+        entity.setProductName(cursor.getString(offset + 1));
+        entity.setProductImage(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setProductPrice(cursor.isNull(offset + 3) ? null : cursor.getFloat(offset + 3));
      }
     
     @Override
     protected final Long updateKeyAfterInsert(Product entity, long rowId) {
-        entity.setId(rowId);
+        entity.setProductId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(Product entity) {
         if(entity != null) {
-            return entity.getId();
+            return entity.getProductId();
         } else {
             return null;
         }
@@ -128,7 +128,7 @@ public class ProductDao extends AbstractDao<Product, Long> {
 
     @Override
     public boolean hasKey(Product entity) {
-        return entity.getId() != null;
+        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
     }
 
     @Override

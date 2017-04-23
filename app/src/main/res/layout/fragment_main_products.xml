@@ -17,6 +17,22 @@
         >
 
         <include layout="@layout/view_custom_toolbar"/>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/countries_tab_layout"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:tabSelectedTextColor="#ffffff"
+            app:tabGravity="center"
+            app:tabMode="scrollable"
+            android:layout_gravity="left"
+            app:tabTextAppearance="@style/Shop.TabLayout.Tab"
+            />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/countries_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/trips_tab_layout"/>
 
     </LinearLayout>
     <FrameLayout

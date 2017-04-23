@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.melolchik.common.util.AppLogger;
 import com.melolchik.common.util.Util;
+import com.melolchik.shopapp.dao.ShopDatabase;
 
 /**
  * Created by melolchik on 23.04.2017.
@@ -18,5 +19,6 @@ public class ShopApplication extends MultiDexApplication {
         super.onCreate();
         Util.init(getApplicationContext());
         AppLogger.init(LOG_TAG,LOG_TAG);
+        ShopDatabase.init(getApplicationContext());
     }
 }

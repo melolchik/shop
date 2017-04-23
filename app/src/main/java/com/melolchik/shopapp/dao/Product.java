@@ -13,15 +13,14 @@ import org.greenrobot.greendao.annotation.*;
 @Entity
 public class Product {
 
-    @Id(autoincrement = true)
-    private Long id;
-
+    @Id
     @Unique
-    private int productId;
+    private long productId;
 
     @NotNull
     private String productName;
     private String productImage;
+    private Float productPrice;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -30,31 +29,23 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id) {
-        this.id = id;
+    public Product(long productId) {
+        this.productId = productId;
     }
 
     @Generated
-    public Product(Long id, int productId, String productName, String productImage) {
-        this.id = id;
+    public Product(long productId, String productName, String productImage, Float productPrice) {
         this.productId = productId;
         this.productName = productName;
         this.productImage = productImage;
+        this.productPrice = productPrice;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
@@ -74,6 +65,14 @@ public class Product {
 
     public void setProductImage(String productImage) {
         this.productImage = productImage;
+    }
+
+    public Float getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(Float productPrice) {
+        this.productPrice = productPrice;
     }
 
     // KEEP METHODS - put your custom methods here

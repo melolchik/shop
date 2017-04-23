@@ -15,4 +15,5 @@
         <item name="customFont">roboto_medium</item>
         <item name="android:textSize">20dp</item>
     </style>
+
 </resources>

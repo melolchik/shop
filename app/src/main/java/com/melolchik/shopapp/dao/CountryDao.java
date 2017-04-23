@@ -22,9 +22,8 @@ public class CountryDao extends AbstractDao<Country, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property CountryId = new Property(1, int.class, "countryId", false, "COUNTRY_ID");
-        public final static Property CountryName = new Property(2, String.class, "countryName", false, "COUNTRY_NAME");
+        public final static Property CountryId = new Property(0, long.class, "countryId", true, "COUNTRY_ID");
+        public final static Property CountryName = new Property(1, String.class, "countryName", false, "COUNTRY_NAME");
     }
 
 
@@ -40,9 +39,8 @@ public class CountryDao extends AbstractDao<Country, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"COUNTRY\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"COUNTRY_ID\" INTEGER NOT NULL UNIQUE ," + // 1: countryId
-                "\"COUNTRY_NAME\" TEXT NOT NULL );"); // 2: countryName
+                "\"COUNTRY_ID\" INTEGER PRIMARY KEY NOT NULL UNIQUE ," + // 0: countryId
+                "\"COUNTRY_NAME\" TEXT NOT NULL );"); // 1: countryName
     }
 
     /** Drops the underlying database table. */
@@ -54,59 +52,47 @@ public class CountryDao extends AbstractDao<Country, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, Country entity) {
         stmt.clearBindings();
- 
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
-        stmt.bindLong(2, entity.getCountryId());
-        stmt.bindString(3, entity.getCountryName());
+        stmt.bindLong(1, entity.getCountryId());
+        stmt.bindString(2, entity.getCountryName());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Country entity) {
         stmt.clearBindings();
- 
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
-        stmt.bindLong(2, entity.getCountryId());
-        stmt.bindString(3, entity.getCountryName());
+        stmt.bindLong(1, entity.getCountryId());
+        stmt.bindString(2, entity.getCountryName());
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+        return cursor.getLong(offset + 0);
     }    
 
     @Override
     public Country readEntity(Cursor cursor, int offset) {
         Country entity = new Country( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getInt(offset + 1), // countryId
-            cursor.getString(offset + 2) // countryName
+            cursor.getLong(offset + 0), // countryId
+            cursor.getString(offset + 1) // countryName
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Country entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setCountryId(cursor.getInt(offset + 1));
-        entity.setCountryName(cursor.getString(offset + 2));
+        entity.setCountryId(cursor.getLong(offset + 0));
+        entity.setCountryName(cursor.getString(offset + 1));
      }
     
     @Override
     protected final Long updateKeyAfterInsert(Country entity, long rowId) {
-        entity.setId(rowId);
+        entity.setCountryId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(Country entity) {
         if(entity != null) {
-            return entity.getId();
+            return entity.getCountryId();
         } else {
             return null;
         }
@@ -114,7 +100,7 @@ public class CountryDao extends AbstractDao<Country, Long> {
 
     @Override
     public boolean hasKey(Country entity) {
-        return entity.getId() != null;
+        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
     }
 
     @Override

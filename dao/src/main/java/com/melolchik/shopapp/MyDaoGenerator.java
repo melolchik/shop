@@ -47,18 +47,17 @@ public class MyDaoGenerator {
      */
     private static Entity addCountry(Schema schema) {
         Entity entity = schema.addEntity("Country");
-        entity.addIdProperty().primaryKey().autoincrement();
-        entity.addIntProperty("countryId").notNull().unique();
+        entity.addLongProperty("countryId").notNull().unique().primaryKey();
         entity.addStringProperty("countryName").notNull();
         return entity;
     }
 
     private static Entity addProduct(Schema schema) {
         Entity entity = schema.addEntity("Product");
-        entity.addIdProperty().primaryKey().autoincrement();
-        entity.addIntProperty("productId").notNull().unique();
+        entity.addLongProperty("productId").notNull().unique().primaryKey();
         entity.addStringProperty("productName").notNull();
         entity.addStringProperty("productImage");
+        entity.addFloatProperty("productPrice");
         return entity;
     }
 

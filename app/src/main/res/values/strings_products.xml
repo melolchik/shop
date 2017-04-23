@@ -1,0 +1,4 @@
+<resources>
+    <string name="products_toolbar_title">Товары</string>
+    <string name="products_tab_all">Все</string>
+</resources>
