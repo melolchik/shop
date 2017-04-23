@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextInput">
+        <attr name="hint" format="string"/>
+        <attr name="errorShow" format="boolean"/>
+        <attr name="errorEmpty" format="string"/>
+        <attr name="errorNotCorrect" format="string"/>
+        <attr name="errorTextAppearance" format="reference" />
+        <attr name="hintTextAppearance" format="reference" />
+        <attr name="editTextAppearance" format="reference" />
+        <attr name="inputType" format="enum">
+            <enum name="none" value="0x00000000"/>
+            <enum name="text" value="0x00000001"/>
+            <enum name="textCapSentences" value="0x00004001"/>
+            <enum name="textEmailAddress" value="0x00000021"/>
+            <enum name="textPersonName" value="0x00000061"/>
+            <enum name="textPostalAddress" value="0x00000071"/>
+            <enum name="textPassword" value="0x00000081"/>
+            <enum name="number" value="0x00000002"/>
+            <enum name="phone" value="0x00000003"/>
+            <enum name="datetime" value="0x00000004"/>
+            <enum name="date" value="0x00000014"/>
+            <enum name="time" value="0x00000024"/>
+        </attr>
+
+    </declare-styleable>
+</resources>

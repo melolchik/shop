@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="left_menu_item_products">Товары</string>
+    <string name="left_menu_item_history">История</string>
+    <string name="left_menu_item_reports">Отчёты</string>
+    <string name="left_menu_item_settings">Настройки</string>
+    <string name="left_menu_item_support">Поддержка</string>
+
+    <string name="left_menu_label">Daily Spend Limit</string>
+    <string name="left_menu_settings_template">\u0024%1$.2f of \u0024%2$.2f</string>
+
+</resources>

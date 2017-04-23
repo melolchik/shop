@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Shop.TextView.LeftSideMenu.MenuItem" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="customFont">sf_ui_display_regular</item>
+        <item name="android:textSize">@dimen/txt_size_left_menu_item</item>
+        <item name="android:drawablePadding">30dp</item>
+        <item name="android:paddingStart">@dimen/padding_left_menu_item</item>
+        <item name="android:paddingEnd">@dimen/padding_left_menu_item</item>
+    </style>
+
+    <style name="Shop.TextView.LeftSideMenu.Email" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="customFont">sf_ui_regular</item>
+        <item name="android:textSize">@dimen/txt_size_left_menu_email</item>
+    </style>
+    <style name="Shop.TextView.LeftSideMenu.Name" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="customFont">sf_ui_display_regular</item>
+        <item name="android:textSize">@dimen/txt_size_left_menu_label</item>
+    </style>
+
+
+</resources>

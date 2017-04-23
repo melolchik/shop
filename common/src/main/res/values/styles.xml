@@ -1,0 +1,27 @@
+<resources>
+
+
+
+
+
+    <style name="Common.TextInput.Edit" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textColorHint"> @color/color_white</item>
+        <item name="android:inputType">textCapSentences</item>
+        <item name="android:textSize">12dp</item>
+        <item name="customFont">sf_ui_display_regular</item>
+    </style>
+
+    <style name="Common.TextInput.Error" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">9dp</item>
+    </style>
+
+    <style name="Common.TextInput.Hint" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textColorHint"> @color/color_white</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:paddingStart">0dp</item>
+    </style>
+
+</resources>
