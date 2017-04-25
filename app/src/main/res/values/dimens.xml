@@ -4,7 +4,7 @@
     <dimen name="diam_profile_photo">60dp</dimen>
 
     <!-- HEIGHT -->
-    <dimen name="height_buttons">50dp</dimen>
+    <dimen name="height_buttons">40dp</dimen>
     <dimen name="height_left_menu_item">40dp</dimen>
     <dimen name="height_keyboard_buttons">40dp</dimen>
     <dimen name="width_keyboard_buttons">100dp</dimen>
@@ -19,6 +19,7 @@
     <dimen name="padding_keyboard_items">3dp</dimen>
     <dimen name="margin_buttons">20dp</dimen>
     <dimen name="padding_dialog">20dp</dimen>
+    <dimen name="padding_dialog_add_product">10dp</dimen>
 
     <!-- TEXT SIZE -->
     <dimen name="txt_size_common_title">28dp</dimen>
@@ -38,5 +39,7 @@
     <dimen name="txt_size_product_name">12dp</dimen>
     <integer name="count_product_in_row">4</integer>
     <dimen name="txt_size_add_product">14dp</dimen>
+
+    <dimen name="txt_size_purchase_message">10dp</dimen>
 
 </resources>

@@ -7,7 +7,9 @@ import android.view.View;
 
 import com.melolchik.common.ui.fragments.BaseFragment;
 import com.melolchik.shopapp.R;
+import com.melolchik.shopapp.components.enums.MessageEventCode;
 import com.melolchik.shopapp.components.events.DialogMessageEvent;
+import com.melolchik.shopapp.components.events.MessageEvent;
 import com.melolchik.shopapp.dao.Country;
 import com.melolchik.shopapp.dao.Product;
 import com.melolchik.shopapp.ui.adapters.LeftMenuAdapter;
@@ -94,10 +96,23 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
     }
 
     @Override
+    public void updatePurchases() {
+        EventBus.getDefault().post(new MessageEvent(MessageEventCode.UPDATE_PURCHASE_LIST));
+    }
+
+    @Override
     public void onProductClick(Product product) {
         log("onProductClick = " + product);
 
-        EventBus.getDefault().post(new DialogMessageEvent(AddProductDialogFragment.createInstance(product)));
+        AddProductDialogFragment dialogFragment = AddProductDialogFragment.createInstance(product);
+        dialogFragment.setOnAddProductListener(new AddProductDialogFragment.OnAddProductListener() {
+            @Override
+            public void addProduct(Product product, float weight) {
+                mProductsPresenter.purchaseProduct(product,weight);
+            }
+        });
+
+        EventBus.getDefault().post(new DialogMessageEvent(dialogFragment));
 
 
     }

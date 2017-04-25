@@ -35,9 +35,9 @@
             android:layout_below="@+id/trips_tab_layout"/>
 
     </LinearLayout>
-    <FrameLayout
+    <include layout="@layout/layout_main_purchases"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:background="@color/color_white"></FrameLayout>
+        android:background="@color/color_white"/>
 </LinearLayout>

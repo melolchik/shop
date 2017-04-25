@@ -12,4 +12,6 @@ public interface CountryProductsViewImpl extends BaseViewImpl{
 
     void showProductList(List<Product> productList);
 
+    void updatePurchases();
+
 }

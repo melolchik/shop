@@ -1,10 +1,13 @@
 package com.melolchik.shopapp.dao;
 
+import java.util.List;
+import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
+import org.greenrobot.greendao.internal.SqlUtils;
 import org.greenrobot.greendao.internal.DaoConfig;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
@@ -23,9 +26,12 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property PurchaseId = new Property(1, int.class, "purchaseId", false, "PURCHASE_ID");
-        public final static Property ProductId = new Property(2, int.class, "productId", false, "PRODUCT_ID");
+        public final static Property PurchaseId = new Property(1, Long.class, "purchaseId", false, "PURCHASE_ID");
+        public final static Property Weight = new Property(2, Float.class, "weight", false, "WEIGHT");
+        public final static Property ProductId = new Property(3, long.class, "productId", false, "PRODUCT_ID");
     }
+
+    private DaoSession daoSession;
 
 
     public PurchaseDao(DaoConfig config) {
@@ -34,6 +40,7 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
     
     public PurchaseDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -41,8 +48,9 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PURCHASE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"PURCHASE_ID\" INTEGER NOT NULL UNIQUE ," + // 1: purchaseId
-                "\"PRODUCT_ID\" INTEGER NOT NULL );"); // 2: productId
+                "\"PURCHASE_ID\" INTEGER," + // 1: purchaseId
+                "\"WEIGHT\" REAL," + // 2: weight
+                "\"PRODUCT_ID\" INTEGER NOT NULL );"); // 3: productId
     }
 
     /** Drops the underlying database table. */
@@ -59,8 +67,17 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getPurchaseId());
-        stmt.bindLong(3, entity.getProductId());
+ 
+        Long purchaseId = entity.getPurchaseId();
+        if (purchaseId != null) {
+            stmt.bindLong(2, purchaseId);
+        }
+ 
+        Float weight = entity.getWeight();
+        if (weight != null) {
+            stmt.bindDouble(3, weight);
+        }
+        stmt.bindLong(4, entity.getProductId());
     }
 
     @Override
@@ -71,8 +88,23 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getPurchaseId());
-        stmt.bindLong(3, entity.getProductId());
+ 
+        Long purchaseId = entity.getPurchaseId();
+        if (purchaseId != null) {
+            stmt.bindLong(2, purchaseId);
+        }
+ 
+        Float weight = entity.getWeight();
+        if (weight != null) {
+            stmt.bindDouble(3, weight);
+        }
+        stmt.bindLong(4, entity.getProductId());
+    }
+
+    @Override
+    protected final void attachEntity(Purchase entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
     }
 
     @Override
@@ -84,8 +116,9 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
     public Purchase readEntity(Cursor cursor, int offset) {
         Purchase entity = new Purchase( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getInt(offset + 1), // purchaseId
-            cursor.getInt(offset + 2) // productId
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // purchaseId
+            cursor.isNull(offset + 2) ? null : cursor.getFloat(offset + 2), // weight
+            cursor.getLong(offset + 3) // productId
         );
         return entity;
     }
@@ -93,8 +126,9 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
     @Override
     public void readEntity(Cursor cursor, Purchase entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setPurchaseId(cursor.getInt(offset + 1));
-        entity.setProductId(cursor.getInt(offset + 2));
+        entity.setPurchaseId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setWeight(cursor.isNull(offset + 2) ? null : cursor.getFloat(offset + 2));
+        entity.setProductId(cursor.getLong(offset + 3));
      }
     
     @Override
@@ -122,4 +156,97 @@ public class PurchaseDao extends AbstractDao<Purchase, Long> {
         return true;
     }
     
+    private String selectDeep;
+
+    protected String getSelectDeep() {
+        if (selectDeep == null) {
+            StringBuilder builder = new StringBuilder("SELECT ");
+            SqlUtils.appendColumns(builder, "T", getAllColumns());
+            builder.append(',');
+            SqlUtils.appendColumns(builder, "T0", daoSession.getProductDao().getAllColumns());
+            builder.append(" FROM PURCHASE T");
+            builder.append(" LEFT JOIN PRODUCT T0 ON T.\"PRODUCT_ID\"=T0.\"PRODUCT_ID\"");
+            builder.append(' ');
+            selectDeep = builder.toString();
+        }
+        return selectDeep;
+    }
+    
+    protected Purchase loadCurrentDeep(Cursor cursor, boolean lock) {
+        Purchase entity = loadCurrent(cursor, 0, lock);
+        int offset = getAllColumns().length;
+
+        Product product = loadCurrentOther(daoSession.getProductDao(), cursor, offset);
+         if(product != null) {
+            entity.setProduct(product);
+        }
+
+        return entity;    
+    }
+
+    public Purchase loadDeep(Long key) {
+        assertSinglePk();
+        if (key == null) {
+            return null;
+        }
+
+        StringBuilder builder = new StringBuilder(getSelectDeep());
+        builder.append("WHERE ");
+        SqlUtils.appendColumnsEqValue(builder, "T", getPkColumns());
+        String sql = builder.toString();
+        
+        String[] keyArray = new String[] { key.toString() };
+        Cursor cursor = db.rawQuery(sql, keyArray);
+        
+        try {
+            boolean available = cursor.moveToFirst();
+            if (!available) {
+                return null;
+            } else if (!cursor.isLast()) {
+                throw new IllegalStateException("Expected unique result, but count was " + cursor.getCount());
+            }
+            return loadCurrentDeep(cursor, true);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+    /** Reads all available rows from the given cursor and returns a list of new ImageTO objects. */
+    public List<Purchase> loadAllDeepFromCursor(Cursor cursor) {
+        int count = cursor.getCount();
+        List<Purchase> list = new ArrayList<Purchase>(count);
+        
+        if (cursor.moveToFirst()) {
+            if (identityScope != null) {
+                identityScope.lock();
+                identityScope.reserveRoom(count);
+            }
+            try {
+                do {
+                    list.add(loadCurrentDeep(cursor, false));
+                } while (cursor.moveToNext());
+            } finally {
+                if (identityScope != null) {
+                    identityScope.unlock();
+                }
+            }
+        }
+        return list;
+    }
+    
+    protected List<Purchase> loadDeepAllAndCloseCursor(Cursor cursor) {
+        try {
+            return loadAllDeepFromCursor(cursor);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+
+    /** A raw-style query where you can pass any WHERE clause and arguments. */
+    public List<Purchase> queryDeep(String where, String... selectionArg) {
+        Cursor cursor = db.rawQuery(getSelectDeep() + where, selectionArg);
+        return loadDeepAllAndCloseCursor(cursor);
+    }
+ 
 }

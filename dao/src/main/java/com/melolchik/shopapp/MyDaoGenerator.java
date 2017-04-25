@@ -2,6 +2,7 @@ package com.melolchik.shopapp;
 
 import org.greenrobot.greendao.generator.DaoGenerator;
 import org.greenrobot.greendao.generator.Entity;
+import org.greenrobot.greendao.generator.Property;
 import org.greenrobot.greendao.generator.Schema;
 
 /**
@@ -35,8 +36,8 @@ public class MyDaoGenerator {
     private static void addTables(Schema schema) {
         /* entities */
         addCountry(schema);
-        addProduct(schema);
-        addPurchase(schema);
+        Entity productEntity = addProduct(schema);
+        addPurchase(schema,productEntity);
 
     }
 
@@ -59,14 +60,17 @@ public class MyDaoGenerator {
         entity.addStringProperty("productImage");
         entity.addFloatProperty("productPrice");
         entity.addLongProperty("productCountry");
+        entity.implementsInterface("android.os.Parcelable");
         return entity;
     }
 
-    private static Entity addPurchase(Schema schema) {
+    private static Entity addPurchase(Schema schema, Entity productEntity) {
         Entity entity = schema.addEntity("Purchase");
         entity.addIdProperty().primaryKey().autoincrement();
-        entity.addIntProperty("purchaseId").notNull().unique();
-        entity.addIntProperty("productId").notNull();
+        entity.addLongProperty("purchaseId");
+        entity.addFloatProperty("weight");
+        Property productId = entity.addLongProperty("productId").notNull().getProperty();
+        entity.addToOne(productEntity,productId);
         return entity;
     }
 

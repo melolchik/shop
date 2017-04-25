@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:background="@drawable/shape_rounded_rectangle_white"
         android:orientation="vertical"
-        android:padding="@dimen/padding_dialog">
+        android:padding="@dimen/padding_dialog_add_product">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Shop.EditText.Weight"
-            android:layout_marginTop="@dimen/padding_dialog"/>
+            android:layout_marginTop="@dimen/padding_dialog_add_product"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_divider"
@@ -45,7 +45,7 @@
             android:id="@+id/keyboard_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_dialog"
+            android:layout_margin="@dimen/padding_dialog_add_product"
             android:overScrollMode="never"/>
 
         <LinearLayout

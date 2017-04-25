@@ -60,13 +60,19 @@ public class AddProductDialogFragment extends BaseDialogFragment implements OnKe
 
     final static String REG_EXP_WEIGHT = "[0-9]+|([0-9]+,?[0-9]{0,3})";
 
+    public interface OnAddProductListener{
+        void addProduct(Product product,float weight);
+    }
+
+    protected OnAddProductListener mOnAddProductListener;
+
     /**
      * Create instance base dialog fragment.
      *
      * @return the base dialog fragment
      */
-    public static BaseDialogFragment createInstance(Product product) {
-        BaseDialogFragment dialogFragment = new AddProductDialogFragment();
+    public static AddProductDialogFragment createInstance(Product product) {
+        AddProductDialogFragment dialogFragment = new AddProductDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PRODUCT,product);
         dialogFragment.setArguments(args);
@@ -96,6 +102,10 @@ public class AddProductDialogFragment extends BaseDialogFragment implements OnKe
         updateWeight();
         updateCost();
 
+    }
+
+    public void setOnAddProductListener(OnAddProductListener onAddProductListener) {
+        mOnAddProductListener = onAddProductListener;
     }
 
     protected void updateCost(){
@@ -134,7 +144,12 @@ public class AddProductDialogFragment extends BaseDialogFragment implements OnKe
                 dismissAllowingStateLoss();
                 break;
             case R.id.btn_add:
+                log("m = " + mWeightString);
+                if(mWeightString.isEmpty() || mWeightString.equals("0")) return;
                 dismissAllowingStateLoss();
+                if(mOnAddProductListener != null){
+                    mOnAddProductListener.addProduct(mProduct,mWeight);
+                }
                 break;
         }
     }

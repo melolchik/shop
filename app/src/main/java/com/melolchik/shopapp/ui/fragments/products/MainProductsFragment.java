@@ -5,29 +5,34 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.melolchik.common.ui.fragments.BaseFragment;
 import com.melolchik.common.ui.fragments.BaseFragmentWithToolbar;
+import com.melolchik.common.ui.views.customfont.CustomFontButton;
+import com.melolchik.common.ui.views.customfont.CustomFontTextView;
 import com.melolchik.shopapp.R;
 import com.melolchik.shopapp.components.enums.MessageEventCode;
 import com.melolchik.shopapp.components.events.MessageEvent;
 import com.melolchik.shopapp.dao.Country;
+import com.melolchik.shopapp.dao.Purchase;
+import com.melolchik.shopapp.ui.presenters.products.MainProductsPresenter;
+import com.melolchik.shopapp.ui.presenters.products.MainProductsViewImpl;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 
 /**
  * Created by melolchik on 23.04.2017.
  */
-public class MainProductsFragment extends BaseFragmentWithToolbar {
+public class MainProductsFragment extends BaseFragmentWithToolbar implements MainProductsViewImpl {
 
     /**
      * The M countries tab layout.
@@ -40,9 +45,16 @@ public class MainProductsFragment extends BaseFragmentWithToolbar {
     @BindView(R.id.countries_view_pager)
     ViewPager mCountriesViewPager;
 
-    protected List<Country> mCountryList;
 
     protected CountriesPageAdapter mCountriesPageAdapter;
+    @BindView(R.id.layout_empty)
+    LinearLayout mLayoutEmpty;
+    @BindView(R.id.txt_total_value)
+    CustomFontTextView mTxtTotalValue;
+    @BindView(R.id.btn_pay)
+    CustomFontButton mBtnPay;
+
+    private MainProductsPresenter mProductsPresenter = new MainProductsPresenter();
 
     /**
      * Create instance base fragment.
@@ -91,32 +103,76 @@ public class MainProductsFragment extends BaseFragmentWithToolbar {
     @Override
     protected void onCreateView(View rootView, Bundle savedInstanceState) {
         super.onCreateView(rootView, savedInstanceState);
-        if(mCountryList == null){
-            mCountryList = Country.getList();
-            mCountryList.add(0,new Country(Country.COUNTRY_ID_ALL,getString(R.string.products_tab_all)));
-        }
-        mCountriesPageAdapter = new CountriesPageAdapter(getChildFragmentManager(),mCountryList);
-        mCountriesViewPager.setAdapter(mCountriesPageAdapter);
-        mCountriesTabLayout.setupWithViewPager(mCountriesViewPager);
+        mProductsPresenter.attachView(this);
+        mProductsPresenter.getCountryList(rootView.getContext());
+        mProductsPresenter.updatePurchaseList();
+
 
     }
+
+
+    @OnClick(R.id.btn_pay)
+    public void onViewClicked() {
+    }
+
+    @Override
+    public void showCountryList(List<Country> list) {
+        if (mCountriesViewPager == null) return;
+        mCountriesPageAdapter = new CountriesPageAdapter(getChildFragmentManager(), list);
+        mCountriesViewPager.setAdapter(mCountriesPageAdapter);
+        mCountriesTabLayout.setupWithViewPager(mCountriesViewPager);
+    }
+
+    @Override
+    public void updatePurchaseList(List<Purchase> list) {
+
+        log("list = " + list);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().removeAllStickyEvents();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        log("onMessageEvent: " + event.getMessageCode());
+        switch (event.getMessageCode()) {
+            case UPDATE_PURCHASE_LIST:
+                if(mProductsPresenter != null){
+                    mProductsPresenter.updatePurchaseList();
+                }
+                break;
+        }
+
+    }
+
 
     private class CountriesPageAdapter extends FragmentStatePagerAdapter {
 
         private final List<Country> mCountryList;
+
         /**
          * Instantiates a new Sign up page adapter.
          *
          * @param fm the fm
          */
-        public CountriesPageAdapter(FragmentManager fm,List<Country> countryList) {
+        public CountriesPageAdapter(FragmentManager fm, List<Country> countryList) {
             super(fm);
             mCountryList = countryList;
         }
 
         @Override
         public BaseFragment getItem(int position) {
-            return CountryProductFragment.createInstance( mCountryList.get(position).getCountryId());
+            return CountryProductFragment.createInstance(mCountryList.get(position).getCountryId());
 
         }
 
@@ -130,4 +186,5 @@ public class MainProductsFragment extends BaseFragmentWithToolbar {
             return mCountryList.get(position).getCountryName();
         }
     }
+
 }

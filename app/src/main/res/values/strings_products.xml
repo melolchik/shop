@@ -6,4 +6,9 @@
 
     <string name="add_product_cost_template">%1$.2fр / %2$.1f Кг</string>
     <string name="add_product_kg">\u0020Кг</string>
+
+    <string name="products_total_label">Итого:</string>
+    <string name="products_purchase_list_empty_title">Товаров нет</string>
+    <string name="products_purchase_list_empty_message">Добавьте товары из каталога, а затем\nвыберете способ оплаты</string>
+    <string name="products_btn_pay">Оплатить</string>
 </resources>

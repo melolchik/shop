@@ -12,12 +12,47 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+    signingConfigs {
+        AppKeystore {
+            keyAlias 'shop'
+            keyPassword '12345678'
+            storeFile file('c:/Keystore/shop.jks')
+//            storeFile file('/Users/virt/Developer/Android/Keystore/DietEM.keystore')
+            storePassword '12345678'
         }
     }
+    buildTypes {
+        debug {
+            debuggable true
+            signingConfig signingConfigs.AppKeystore//signing by the same key
+            minifyEnabled false
+
+        }
+
+        releaseBeta {
+            debuggable true
+            signingConfig signingConfigs.AppKeystore//signing by the same key
+
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            debuggable false
+            signingConfig signingConfigs.AppKeystore//signing by the same key
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            lintOptions {
+                disable 'MissingTranslation'
+            }
+        }
+    }
+
 }
 
 dependencies {

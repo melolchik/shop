@@ -33,7 +33,12 @@ public enum MessageEventCode {
     /**
      * Show dialog message event code.
      */
-    SHOW_DIALOG(6);
+    SHOW_DIALOG(6),
+
+    /**
+     * Update purchase list message event code.
+     */
+    UPDATE_PURCHASE_LIST(7);
 
     private final int mCode;
 
