@@ -7,14 +7,18 @@ import android.view.View;
 
 import com.melolchik.common.ui.fragments.BaseFragment;
 import com.melolchik.shopapp.R;
+import com.melolchik.shopapp.components.events.DialogMessageEvent;
 import com.melolchik.shopapp.dao.Country;
 import com.melolchik.shopapp.dao.Product;
 import com.melolchik.shopapp.ui.adapters.LeftMenuAdapter;
 import com.melolchik.shopapp.ui.adapters.ProductGridAdapter;
 import com.melolchik.shopapp.ui.adapters.decors.AlignmentItemDecoration;
+import com.melolchik.shopapp.ui.dialogs.AddProductDialogFragment;
 import com.melolchik.shopapp.ui.presenters.products.CountryProductsPresenter;
 import com.melolchik.shopapp.ui.presenters.products.CountryProductsViewImpl;
 import com.melolchik.shopapp.utils.SettingsUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -92,5 +96,9 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
     @Override
     public void onProductClick(Product product) {
         log("onProductClick = " + product);
+
+        EventBus.getDefault().post(new DialogMessageEvent(AddProductDialogFragment.createInstance(product)));
+
+
     }
 }

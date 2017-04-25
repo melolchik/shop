@@ -6,6 +6,9 @@
     <!-- HEIGHT -->
     <dimen name="height_buttons">100dp</dimen>
     <dimen name="height_left_menu_item">100dp</dimen>
+    <dimen name="height_keyboard_buttons">80dp</dimen>
+    <dimen name="width_keyboard_buttons">200dp</dimen>
+    <dimen name="height_divider">4dp</dimen>
 
     <!-- PADDING -->
     <dimen name="padding_text">100dp</dimen>
@@ -13,11 +16,14 @@
     <dimen name="padding_left_menu_item">45dp</dimen>
     <dimen name="padding_left_menu_item_right">30dp</dimen>
     <dimen name="margin_product_items">20dp</dimen>
+    <dimen name="padding_keyboard_items">6dp</dimen>
+    <dimen name="margin_buttons">40dp</dimen>
+    <dimen name="padding_dialog">40dp</dimen>
 
     <!-- TEXT SIZE : Common-->
     <dimen name="txt_size_common_title">56dp</dimen>
     <dimen name="txt_size_common_message">36dp</dimen>
-    <dimen name="txt_size_common_button">36dp</dimen>
+    <dimen name="txt_size_common_button">28dp</dimen>
 
 
     <dimen name="txt_size_edit_text">28dp</dimen>
@@ -33,5 +39,6 @@
     <dimen name="txt_size_country_name">24dp</dimen>
     <dimen name="txt_size_product_name">24dp</dimen>
     <integer name="count_product_in_row">5</integer>
+    <dimen name="txt_size_add_product">28dp</dimen>
 
 </resources>

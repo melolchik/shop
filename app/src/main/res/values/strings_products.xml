@@ -1,4 +1,9 @@
 <resources>
     <string name="products_toolbar_title">Товары</string>
     <string name="products_tab_all">Все</string>
+    <string name="btn_cancel">Отменить</string>
+    <string name="btn_add">Добавить</string>
+
+    <string name="add_product_cost_template">%1$.2fр / %2$.1f Кг</string>
+    <string name="add_product_kg">\u0020Кг</string>
 </resources>

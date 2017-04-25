@@ -14,12 +14,22 @@ import android.view.ViewGroup;
 
 import com.melolchik.common.R;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+/**
+ * Created by melolchik on 25.03.2016.
+ */
+
+
 /**
  * Created by melolchik on 25.03.2016.
  */
 public abstract class BaseDialogFragment extends AppCompatDialogFragment {
 
     protected  OnDismissListener mDismissListener;
+
+    protected Unbinder mUnbinder = null;
 
     public interface OnDismissListener{
         void onDismiss();
@@ -38,9 +48,11 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         if(getViewLayoutID() != 0) {
             final View rootView = View.inflate(getContext(), getViewLayoutID(), null);
             dialog.setContentView(rootView);
+            mUnbinder = ButterKnife.bind(this,rootView);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(/*android.graphics.CarColor.TRANSPARENT*/getBackgroundColor()));
 //        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
             onCreateView(rootView);
+
             ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) ((View) rootView.getParent())
                     .getLayoutParams();
 
@@ -85,6 +97,14 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         super.onDismiss(dialog);
         if(mDismissListener != null){
             mDismissListener.onDismiss();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mUnbinder != null){
+            mUnbinder.unbind();
         }
     }
 }

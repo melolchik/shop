@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:background="@color/color_transparent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_rounded_rectangle_white"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_dialog">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.melolchik.common.ui.views.customfont.CustomFontTextView
+                android:id="@+id/txt_product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Product"
+                style="@style/Shop.TextView.AddProduct.Name"/>
+            <com.melolchik.common.ui.views.customfont.CustomFontTextView
+                android:id="@+id/txt_product_cost"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                tools:text="Cost"
+                style="@style/Shop.TextView.AddProduct.Cost"/>
+        </LinearLayout>
+        <com.melolchik.common.ui.views.customfont.CustomFontEditText
+            android:id="@+id/edit_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Shop.EditText.Weight"
+            android:layout_marginTop="@dimen/padding_dialog"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_divider"
+            android:background="@color/color_light_blue"
+            />
+        <com.melolchik.shopapp.ui.views.KeyboardView
+            android:id="@+id/keyboard_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_dialog"
+            android:overScrollMode="never"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_keyboard_buttons"
+            android:layout_gravity="end"
+            android:orientation="horizontal">
+
+            <com.melolchik.common.ui.views.customfont.CustomFontButton
+                android:id="@+id/btn_cancel"
+                style="@style/Shop.Button.AddProduct.White"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/btn_cancel"/>
+
+            <com.melolchik.common.ui.views.customfont.CustomFontButton
+                android:id="@+id/btn_add"
+                style="@style/Shop.Button.AddProduct.Blue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_buttons"
+                android:text="@string/btn_add"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

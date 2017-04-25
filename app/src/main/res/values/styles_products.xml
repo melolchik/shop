@@ -15,4 +15,52 @@
         <item name="android:paddingStart">10dp</item>
     </style>
 
+    <style name="Stuypend.Button.KeyboardItem" parent="Widget.AppCompat.Button">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="customFont">sf_ui_regular</item>
+        <item name="android:textSize">@dimen/txt_size_common_button</item>
+        <item name="android:background">@drawable/selector_keyboard_item</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Shop.Button.AddProduct.White" parent="Widget.AppCompat.Button">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/color_light_blue</item>
+        <item name="customFont">sf_ui_regular</item>
+        <item name="android:textSize">@dimen/txt_size_common_button</item>
+        <item name="android:background">@drawable/selector_button_white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingStart">@dimen/margin_buttons</item>
+        <item name="android:paddingEnd">@dimen/margin_buttons</item>
+    </style>
+
+    <style name="Shop.Button.AddProduct.Blue" parent="Shop.Button.AddProduct.White">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:background">@drawable/selector_button_blue</item>
+    </style>
+
+    <style name="Shop.TextView.AddProduct.Name" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="customFont">roboto_bold</item>
+        <item name="android:textSize">@dimen/txt_size_add_product</item>
+    </style>
+
+    <style name="Shop.TextView.AddProduct.Cost" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="customFont">roboto_medium</item>
+        <item name="android:textSize">@dimen/txt_size_add_product</item>
+    </style>
+
+    <style name="Shop.EditText.Weight" parent="Widget.AppCompat.EditText">
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="android:textColorHint">@color/color_gray</item>
+        <item name="customFont">sf_ui_display_regular</item>
+        <item name="android:textSize">@dimen/txt_size_add_product</item>
+        <item name="android:enabled">false</item>
+    </style>
+
 </resources>

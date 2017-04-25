@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import com.melolchik.common.ui.activities.BaseActivity;
 import com.melolchik.shopapp.R;
 import com.melolchik.shopapp.components.enums.LeftMenuItem;
+import com.melolchik.shopapp.components.events.DialogMessageEvent;
 import com.melolchik.shopapp.components.events.FragmentMessageEvent;
 import com.melolchik.shopapp.components.events.MessageEvent;
 import com.melolchik.shopapp.ui.adapters.LeftMenuAdapter;
@@ -114,10 +115,12 @@ public class MainActivity extends BaseActivity implements LeftSideMenuView.OnExi
                 FragmentMessageEvent fragmentMessageEvent = (FragmentMessageEvent) event;
                 showFragment(fragmentMessageEvent.getBaseFragment(), true, true);
                 break;
-           /* case SHOW_DIALOG:
+            case SHOW_DIALOG:
                 DialogMessageEvent dialogMessageEvent = (DialogMessageEvent) event;
-                showDialogAllowingStateLoss(dialogMessageEvent.getBaseDialogFragment());
-                break;*/
+                if(dialogMessageEvent.getBaseDialogFragment() != null){
+                    dialogMessageEvent.getBaseDialogFragment().show(this);
+                }
+                break;
             case SHOW_PROGRESS_BAR:
 
                 break;
