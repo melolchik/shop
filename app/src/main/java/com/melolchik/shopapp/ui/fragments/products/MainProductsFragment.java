@@ -5,6 +5,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -17,6 +19,7 @@ import com.melolchik.shopapp.components.enums.MessageEventCode;
 import com.melolchik.shopapp.components.events.MessageEvent;
 import com.melolchik.shopapp.dao.Country;
 import com.melolchik.shopapp.dao.Purchase;
+import com.melolchik.shopapp.ui.adapters.PurchaseListAdapter;
 import com.melolchik.shopapp.ui.presenters.products.MainProductsPresenter;
 import com.melolchik.shopapp.ui.presenters.products.MainProductsViewImpl;
 
@@ -46,13 +49,32 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
     ViewPager mCountriesViewPager;
 
 
+    /**
+     * The M countries page adapter.
+     */
     protected CountriesPageAdapter mCountriesPageAdapter;
+    /**
+     * The M layout empty.
+     */
     @BindView(R.id.layout_empty)
     LinearLayout mLayoutEmpty;
+    /**
+     * The M txt total value.
+     */
     @BindView(R.id.txt_total_value)
     CustomFontTextView mTxtTotalValue;
+    /**
+     * The M btn pay.
+     */
     @BindView(R.id.btn_pay)
     CustomFontButton mBtnPay;
+    /**
+     * The M recycler view.
+     */
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+
+    protected PurchaseListAdapter mListAdapter;
 
     private MainProductsPresenter mProductsPresenter = new MainProductsPresenter();
 
@@ -107,10 +129,17 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
         mProductsPresenter.getCountryList(rootView.getContext());
         mProductsPresenter.updatePurchaseList();
 
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+        mListAdapter = new PurchaseListAdapter(mRecyclerView);
+        mRecyclerView.setAdapter(mListAdapter);
+
 
     }
 
 
+    /**
+     * On view clicked.
+     */
     @OnClick(R.id.btn_pay)
     public void onViewClicked() {
     }
@@ -126,7 +155,17 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
     @Override
     public void updatePurchaseList(List<Purchase> list) {
 
+        if(getView() == null) return;
         log("list = " + list);
+        if(list == null || list.isEmpty()){
+            mLayoutEmpty.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+            return;
+        }
+
+        mLayoutEmpty.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mListAdapter.setData(list);
     }
 
     @Override
@@ -142,19 +181,23 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * On message event.
+     *
+     * @param event the event
+     */
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         log("onMessageEvent: " + event.getMessageCode());
         switch (event.getMessageCode()) {
             case UPDATE_PURCHASE_LIST:
-                if(mProductsPresenter != null){
+                if (mProductsPresenter != null) {
                     mProductsPresenter.updatePurchaseList();
                 }
                 break;
         }
 
     }
-
 
     private class CountriesPageAdapter extends FragmentStatePagerAdapter {
 
@@ -163,7 +206,8 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
         /**
          * Instantiates a new Sign up page adapter.
          *
-         * @param fm the fm
+         * @param fm          the fm
+         * @param countryList the country list
          */
         public CountriesPageAdapter(FragmentManager fm, List<Country> countryList) {
             super(fm);

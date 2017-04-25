@@ -93,4 +93,25 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="Shop.TextView.Purchase.Product.Name" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="customFont">roboto_bold</item>
+        <item name="android:textSize">@dimen/txt_size_add_product</item>
+    </style>
+
+    <style name="Shop.TextView.Purchase.Product.Price" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="customFont">roboto_bold</item>
+        <item name="android:textSize">@dimen/txt_size_add_product</item>
+    </style>
+
+    <style name="Shop.TextView.Purchase.Product.Cost" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_gray_dark</item>
+        <item name="customFont">roboto_bold</item>
+        <item name="android:textSize">@dimen/txt_size_purchase_message</item>
+    </style>
+
 </resources>
