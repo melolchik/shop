@@ -13,15 +13,30 @@ import com.melolchik.shopapp.utils.SettingsUtil;
 /**
  * Created by melolchik on 23.04.2017.
  */
-
 public class ProductGridAdapter extends BaseListAdapter<Product> {
 
+    /**
+     * The interface On product click listener.
+     */
     public interface OnProductClickListener {
+        /**
+         * On product click.
+         *
+         * @param product the product
+         */
         void onProductClick(Product product);
     }
 
+    /**
+     * The M on item click listener.
+     */
     protected OnProductClickListener mOnItemClickListener;
 
+    /**
+     * Instantiates a new Product grid adapter.
+     *
+     * @param recyclerView the recycler view
+     */
     public ProductGridAdapter(RecyclerView recyclerView){
         super(recyclerView);
     }
@@ -43,13 +58,31 @@ public class ProductGridAdapter extends BaseListAdapter<Product> {
         }
     }
 
+    /**
+     * The type Product view holder.
+     */
     public static class ProductViewHolder extends RecyclerView.ViewHolder{
+        /**
+         * The M product view.
+         */
         protected final ProductView mProductView;
+
+        /**
+         * Instantiates a new Product view holder.
+         *
+         * @param view the view
+         */
         ProductViewHolder(ProductView view){
             super(view);
             mProductView = view;
         }
 
+        /**
+         * Set data.
+         *
+         * @param product  the product
+         * @param listener the listener
+         */
         public void setData(Product product,final OnProductClickListener listener){
             mProductView.bind(product);
             mProductView.setClickable(true);
@@ -64,6 +97,11 @@ public class ProductGridAdapter extends BaseListAdapter<Product> {
         }
     }
 
+    /**
+     * Sets on product click listener.
+     *
+     * @param onItemClickListener the on item click listener
+     */
     public void setOnProductClickListener(OnProductClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }

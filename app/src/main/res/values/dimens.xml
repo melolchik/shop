@@ -20,6 +20,7 @@
     <dimen name="margin_buttons">20dp</dimen>
     <dimen name="padding_dialog">20dp</dimen>
     <dimen name="padding_dialog_add_product">10dp</dimen>
+    <dimen name="padding_purchase_list">10dp</dimen>
 
     <!-- TEXT SIZE -->
     <dimen name="txt_size_common_title">28dp</dimen>

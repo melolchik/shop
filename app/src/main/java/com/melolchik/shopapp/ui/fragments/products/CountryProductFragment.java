@@ -33,6 +33,9 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
         ProductGridAdapter.OnProductClickListener{
 
 
+    /**
+     * The constant ARG_COUNTRY_ID.
+     */
     protected final static String ARG_COUNTRY_ID = "ARG_COUNTRY_ID";
 
     /**
@@ -41,8 +44,14 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    /**
+     * The M country id.
+     */
     protected long mCountryId = 0;
 
+    /**
+     * The M grid adapter.
+     */
     protected ProductGridAdapter mGridAdapter;
 
     private CountryProductsPresenter mProductsPresenter = new CountryProductsPresenter();
@@ -50,6 +59,7 @@ public class CountryProductFragment extends BaseFragment implements CountryProdu
     /**
      * Create instance base fragment.
      *
+     * @param countryId the country id
      * @return the base fragment
      */
     public static BaseFragment createInstance(long countryId) {

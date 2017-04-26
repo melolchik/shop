@@ -18,7 +18,15 @@ import com.melolchik.shopapp.components.enums.LeftMenuItem;
  */
 public class LeftMenuAdapter extends RecyclerView.Adapter<LeftMenuAdapter.MenuItemViewHolder> {
 
+    /**
+     * The interface On item click listener.
+     */
     public static interface OnItemClickListener{
+        /**
+         * On item click.
+         *
+         * @param item the item
+         */
         void onItemClick(LeftMenuItem item);
     }
 
@@ -35,6 +43,9 @@ public class LeftMenuAdapter extends RecyclerView.Adapter<LeftMenuAdapter.MenuIt
      */
     protected LayoutInflater inflater;
 
+    /**
+     * The M on item click listener.
+     */
     protected OnItemClickListener mOnItemClickListener;
 
     /**
@@ -49,6 +60,11 @@ public class LeftMenuAdapter extends RecyclerView.Adapter<LeftMenuAdapter.MenuIt
         inflater = LayoutInflater.from(mContext);
     }
 
+    /**
+     * Sets on item click listener.
+     *
+     * @param onItemClickListener the on item click listener
+     */
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
@@ -63,6 +79,12 @@ public class LeftMenuAdapter extends RecyclerView.Adapter<LeftMenuAdapter.MenuIt
     }
 
 
+    /**
+     * Gets item.
+     *
+     * @param position the position
+     * @return the item
+     */
     public LeftMenuItem getItem(int position) {
         return LeftMenuItem.values()[position];
     }
@@ -85,14 +107,31 @@ public class LeftMenuAdapter extends RecyclerView.Adapter<LeftMenuAdapter.MenuIt
         holder.setData(getItem(position));
     }
 
+    /**
+     * The type Menu item view holder.
+     */
     public class MenuItemViewHolder extends RecyclerView.ViewHolder{
 
+        /**
+         * The M text view.
+         */
         protected TextView mTextView;
+
+        /**
+         * Instantiates a new Menu item view holder.
+         *
+         * @param root the root
+         */
         public MenuItemViewHolder(View root){
             super(root);
             mTextView = (TextView) root.findViewById(R.id.item_title);
         }
 
+        /**
+         * Set data.
+         *
+         * @param leftMenuItem the left menu item
+         */
         public void setData(LeftMenuItem leftMenuItem){
 
 

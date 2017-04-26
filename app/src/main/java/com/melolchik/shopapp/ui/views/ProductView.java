@@ -64,12 +64,22 @@ public class ProductView extends FrameLayout {
         ButterKnife.bind(this, this);
     }
 
+    /**
+     * Bind.
+     *
+     * @param product the product
+     */
     public void bind(Product product){
         mProduct = product;
         if(product == null) return;
         mItemName.setText(product.getProductName());
     }
 
+    /**
+     * Gets product.
+     *
+     * @return the product
+     */
     public Product getProduct() {
         return mProduct;
     }

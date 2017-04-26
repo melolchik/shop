@@ -28,17 +28,17 @@ public class PurchaseView extends FrameLayout {
      * The M txt product price.
      */
     @BindView(R.id.txt_product_price)
-    CustomFontTextView mTxtProductPrice;
+    CustomFontTextView mTxtProductFullCost;
     /**
      * The M txt cost one.
      */
     @BindView(R.id.txt_cost_one)
-    CustomFontTextView mTxtCostOne;
+    CustomFontTextView mTxtPriceForOne;
     /**
      * The M txt cost two.
      */
     @BindView(R.id.txt_cost_two)
-    CustomFontTextView mTxtCostTwo;
+    CustomFontTextView mTxtPriceForAll;
 
     /**
      * Instantiates a new Purchase view.
@@ -72,10 +72,49 @@ public class PurchaseView extends FrameLayout {
         ButterKnife.bind(this, this);
     }
 
+    /**
+     * Bind.
+     *
+     * @param purchase the purchase
+     */
     public void bind(Purchase purchase){
         if(purchase == null) return;
         Product product = purchase.getProduct();
         if(product == null) return;
         mTxtProductName.setText(product.getProductName());
+        setProductCost(product.getProductPrice() * purchase.getWeight());
+        setProductPriceOne(product.getProductPrice());
+        setProductPriceAll(purchase.getWeight(),product.getProductPrice());
+    }
+
+    /**
+     * Set product cost.
+     *
+     * @param cost the cost
+     */
+    protected void setProductCost(float cost){
+        String value = getContext().getString(R.string.purchase_cost_template,cost);
+        mTxtProductFullCost.setText(value);
+    }
+
+    /**
+     * Set product price one.
+     *
+     * @param price the price
+     */
+    protected void setProductPriceOne(float price){
+        String value = getContext().getString(R.string.purchase_price_template,1.0f,price);
+        mTxtPriceForOne.setText(value);
+    }
+
+    /**
+     * Set product price all.
+     *
+     * @param weight the weight
+     * @param price  the price
+     */
+    protected void setProductPriceAll(float weight,float price){
+        String value = getContext().getString(R.string.purchase_price_template,weight,price);
+        mTxtPriceForAll.setText(value);
     }
 }

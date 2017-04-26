@@ -12,11 +12,18 @@ import com.melolchik.shopapp.ui.views.OnKeyboardListener;
 /**
  * Created by melolchik on 25.04.2017.
  */
-
 public class KeyboardGridAdapter extends BaseListAdapter<Character> {
 
+    /**
+     * The M keyboard listener.
+     */
     protected OnKeyboardListener mKeyboardListener;
 
+    /**
+     * Instantiates a new Keyboard grid adapter.
+     *
+     * @param recyclerView the recycler view
+     */
     public KeyboardGridAdapter(RecyclerView recyclerView) {
         super(recyclerView);
     }
@@ -27,6 +34,11 @@ public class KeyboardGridAdapter extends BaseListAdapter<Character> {
         return new KeyboardItemHolder(view);
     }
 
+    /**
+     * Sets keyboard listener.
+     *
+     * @param keyboardListener the keyboard listener
+     */
     public void setKeyboardListener(OnKeyboardListener keyboardListener) {
         mKeyboardListener = keyboardListener;
     }
@@ -39,15 +51,32 @@ public class KeyboardGridAdapter extends BaseListAdapter<Character> {
         }
     }
 
+    /**
+     * The type Keyboard item holder.
+     */
     public static class KeyboardItemHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * The M button.
+         */
         Button mButton;
 
+        /**
+         * Instantiates a new Keyboard item holder.
+         *
+         * @param view the view
+         */
         KeyboardItemHolder(View view) {
             super(view);
             mButton = (Button) view.findViewById(R.id.item_button);
         }
 
+        /**
+         * Sets data.
+         *
+         * @param character the character
+         * @param listener  the listener
+         */
         void setData(final Character character,final OnKeyboardListener listener) {
             mButton.setText(character.toString());
             mButton.setOnClickListener(new View.OnClickListener() {

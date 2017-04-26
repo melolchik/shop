@@ -15,9 +15,9 @@ public class DatabaseUtil {
     public static final int COUNTRY_BELORUSSIA = 1;
 
     public void initIfNull(){
-        ShopDatabase database = new ShopDatabase(true);
+       /* ShopDatabase database = new ShopDatabase(true);
         database.cleanAllTables();
-        database.release();
+        database.release();*/
 
         updateCountryList();
         log("country list = " + Country.getList());

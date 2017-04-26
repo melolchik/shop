@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:background="@color/color_white"
               android:orientation="vertical"
-              android:padding="@dimen/padding_dialog"
+              android:padding="@dimen/padding_purchase_list"
               >
 
     <LinearLayout
@@ -16,15 +16,15 @@
             android:id="@+id/txt_product_name"
             style="@style/Shop.TextView.Purchase.Product.Name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/products_total_label"/>
+            android:layout_height="wrap_content"/>
 
         <com.melolchik.common.ui.views.customfont.CustomFontTextView
             android:id="@+id/txt_product_price"
-            style="@style/Shop.TextView.Purchase.Product.Cost"
+            style="@style/Shop.TextView.Purchase.Product.Price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center_vertical|end"/>
 
     </LinearLayout>
 
@@ -32,22 +32,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/padding_dialog"
+        android:layout_marginTop="@dimen/padding_purchase_list"
         >
 
         <com.melolchik.common.ui.views.customfont.CustomFontTextView
             android:id="@+id/txt_cost_one"
             style="@style/Shop.TextView.Purchase.Product.Cost"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/products_total_label"/>
+            android:layout_height="wrap_content"/>
 
         <com.melolchik.common.ui.views.customfont.CustomFontTextView
             android:id="@+id/txt_cost_two"
             style="@style/Shop.TextView.Purchase.Product.Cost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:gravity="center_vertical|end"/>
 
     </LinearLayout>
 

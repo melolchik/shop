@@ -29,6 +29,9 @@ import static com.melolchik.common.util.AppLogger.log;
  */
 public class AddProductDialogFragment extends BaseDialogFragment implements OnKeyboardListener {
 
+    /**
+     * The constant ARG_PRODUCT.
+     */
     protected final static String ARG_PRODUCT = "ARG_PRODUCT";
 
     /**
@@ -52,23 +55,48 @@ public class AddProductDialogFragment extends BaseDialogFragment implements OnKe
     @BindView(R.id.keyboard_view)
     KeyboardView mKeyboardView;
 
+    /**
+     * The M product.
+     */
     protected Product mProduct;
 
+    /**
+     * The M weight.
+     */
     protected float mWeight = 0f;
 
+    /**
+     * The M weight string.
+     */
     protected String mWeightString = "0";
 
+    /**
+     * The constant REG_EXP_WEIGHT.
+     */
     final static String REG_EXP_WEIGHT = "[0-9]+|([0-9]+,?[0-9]{0,3})";
 
+    /**
+     * The interface On add product listener.
+     */
     public interface OnAddProductListener{
+        /**
+         * Add product.
+         *
+         * @param product the product
+         * @param weight  the weight
+         */
         void addProduct(Product product,float weight);
     }
 
+    /**
+     * The M on add product listener.
+     */
     protected OnAddProductListener mOnAddProductListener;
 
     /**
      * Create instance base dialog fragment.
      *
+     * @param product the product
      * @return the base dialog fragment
      */
     public static AddProductDialogFragment createInstance(Product product) {
@@ -104,10 +132,18 @@ public class AddProductDialogFragment extends BaseDialogFragment implements OnKe
 
     }
 
+    /**
+     * Sets on add product listener.
+     *
+     * @param onAddProductListener the on add product listener
+     */
     public void setOnAddProductListener(OnAddProductListener onAddProductListener) {
         mOnAddProductListener = onAddProductListener;
     }
 
+    /**
+     * Update cost.
+     */
     protected void updateCost(){
         if(mProduct == null) return;
         mWeight = Util.getFloatFromString(mWeightString.replace(",","."));
@@ -154,6 +190,12 @@ public class AddProductDialogFragment extends BaseDialogFragment implements OnKe
         }
     }
 
+    /**
+     * Is valid boolean.
+     *
+     * @param value the value
+     * @return the boolean
+     */
     protected boolean isValid(String value){
         if(TextUtils.isEmpty(value)) return true;
         final Pattern PATTERN = Pattern.compile(REG_EXP_WEIGHT);
@@ -181,6 +223,9 @@ public class AddProductDialogFragment extends BaseDialogFragment implements OnKe
         }
     }
 
+    /**
+     * Update weight.
+     */
     protected void updateWeight(){
         if(mWeightString.isEmpty()){
             mWeightString = "0";

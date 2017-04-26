@@ -204,6 +204,21 @@ public class Purchase {
         return list != null ? list : Collections.<Purchase>emptyList();
     }
 
+    public static void deleteAll() {
+        ShopDatabase database = new ShopDatabase(true);
+        try {
+            DaoSession daoSession = database.getDaoSession();
+            PurchaseDao dao = daoSession.getPurchaseDao();
+            dao.deleteAll();
+            daoSession.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            database.release();
+        }
+
+    }
+
     @Override
     public String toString() {
         return "" + getWeight();

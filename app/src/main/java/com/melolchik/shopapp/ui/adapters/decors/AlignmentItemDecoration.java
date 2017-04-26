@@ -9,9 +9,17 @@ import android.view.View;
  * Created by melolchik on 23.03.2016.
  */
 public class AlignmentItemDecoration extends RecyclerView.ItemDecoration {
+    /**
+     * The M item margin.
+     */
     protected final int mItemMargin;
 
 
+    /**
+     * Instantiates a new Alignment item decoration.
+     *
+     * @param itemMargin the item margin
+     */
     public AlignmentItemDecoration(int itemMargin) {
         mItemMargin = itemMargin;
     }

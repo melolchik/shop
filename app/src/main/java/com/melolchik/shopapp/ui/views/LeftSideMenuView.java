@@ -115,7 +115,6 @@ public class LeftSideMenuView extends FrameLayout {
     }
 
 
-
     /**
      * Set email.
      *

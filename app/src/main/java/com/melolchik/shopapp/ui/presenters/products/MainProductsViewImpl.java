@@ -14,4 +14,6 @@ public interface MainProductsViewImpl extends BaseViewImpl {
     void showCountryList(List<Country> list);
 
     void updatePurchaseList(List<Purchase> list);
+
+    void updateTotalCost(float total);
 }

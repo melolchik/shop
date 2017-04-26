@@ -20,6 +20,7 @@ import com.melolchik.shopapp.components.events.MessageEvent;
 import com.melolchik.shopapp.dao.Country;
 import com.melolchik.shopapp.dao.Purchase;
 import com.melolchik.shopapp.ui.adapters.PurchaseListAdapter;
+import com.melolchik.shopapp.ui.adapters.decors.DividerItemDecoration;
 import com.melolchik.shopapp.ui.presenters.products.MainProductsPresenter;
 import com.melolchik.shopapp.ui.presenters.products.MainProductsViewImpl;
 
@@ -74,7 +75,20 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    /**
+     * The M list adapter.
+     */
     protected PurchaseListAdapter mListAdapter;
+    /**
+     * The M btn clear.
+     */
+    @BindView(R.id.btn_clear)
+    CustomFontButton mBtnClear;
+    /**
+     * The M layout data.
+     */
+    @BindView(R.id.layout_data)
+    LinearLayout mLayoutData;
 
     private MainProductsPresenter mProductsPresenter = new MainProductsPresenter();
 
@@ -125,15 +139,15 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
     @Override
     protected void onCreateView(View rootView, Bundle savedInstanceState) {
         super.onCreateView(rootView, savedInstanceState);
-        mProductsPresenter.attachView(this);
-        mProductsPresenter.getCountryList(rootView.getContext());
-        mProductsPresenter.updatePurchaseList();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         mListAdapter = new PurchaseListAdapter(mRecyclerView);
         mRecyclerView.setAdapter(mListAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(rootView.getContext()));
 
-
+        mProductsPresenter.attachView(this);
+        mProductsPresenter.getCountryList(rootView.getContext());
+        mProductsPresenter.updatePurchaseList();
     }
 
 
@@ -142,6 +156,15 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
      */
     @OnClick(R.id.btn_pay)
     public void onViewClicked() {
+    }
+
+
+    /**
+     * On view clicked clear.
+     */
+    @OnClick(R.id.btn_clear)
+    public void onViewClickedClear() {
+        mProductsPresenter.clearPurchaseList();
     }
 
     @Override
@@ -155,17 +178,25 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
     @Override
     public void updatePurchaseList(List<Purchase> list) {
 
-        if(getView() == null) return;
+
         log("list = " + list);
-        if(list == null || list.isEmpty()){
+        if (list == null || list.isEmpty()) {
             mLayoutEmpty.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.GONE);
+            mLayoutData.setVisibility(View.GONE);
+            mBtnPay.setEnabled(false);
             return;
         }
 
         mLayoutEmpty.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
+        mLayoutData.setVisibility(View.VISIBLE);
         mListAdapter.setData(list);
+        mBtnPay.setEnabled(true);
+    }
+
+    @Override
+    public void updateTotalCost(float total) {
+        if (mTxtTotalValue == null) return;
+        mTxtTotalValue.setText(getString(R.string.purchase_cost_template, total));
     }
 
     @Override
@@ -198,6 +229,7 @@ public class MainProductsFragment extends BaseFragmentWithToolbar implements Mai
         }
 
     }
+
 
     private class CountriesPageAdapter extends FragmentStatePagerAdapter {
 

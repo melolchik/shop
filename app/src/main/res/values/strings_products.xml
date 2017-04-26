@@ -11,4 +11,8 @@
     <string name="products_purchase_list_empty_title">Товаров нет</string>
     <string name="products_purchase_list_empty_message">Добавьте товары из каталога, а затем\nвыберете способ оплаты</string>
     <string name="products_btn_pay">Оплатить</string>
+    <string name="products_btn_clear">Очитстить всё</string>
+
+    <string name="purchase_cost_template">%1$.2fр </string>
+    <string name="purchase_price_template"> %1$.1f Кг X %2$.2fр</string>
 </resources>
